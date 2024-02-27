@@ -3,17 +3,19 @@ import React, { useState } from 'react'
 import Header from '../components/Header'
 import Entrypo from '@expo/vector-icons/Entypo';
 import { app, auth } from '../firebaseConfig';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-const Login = () => {
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
+const Login = ({navigation}:any) => {
   const [email,setEmail]=useState<string>("");
   const [password,setPassword]=useState<string>("");
   const signIn=function():void
   {
-    createUserWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
     console.log(user)
+    navigation.navigate("Message")
     setEmail("");
     setPassword("");
     // ...
@@ -39,6 +41,10 @@ const Login = () => {
     </View>
     <TouchableOpacity onPress={signIn} className='mt-10 w-40 h-12 justify-center items-center bg-green-600 rounded-xl'>
       <Text className='text-white text-lg text-center '>Log In</Text>
+    </TouchableOpacity>
+    <Text className="mt-3 text-xl ">Dont have an account</Text>
+    <TouchableOpacity className='mt-2'>
+      <Text className='text-lg underline ' onPress={()=>navigation.navigate("SignUp")}>Sign Up</Text>
     </TouchableOpacity>
     </View>
   )
