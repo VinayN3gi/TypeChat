@@ -14,7 +14,6 @@ const Login = ({navigation}:any) => {
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
-    console.log(user)
     navigation.navigate("Message")
     setEmail("");
     setPassword("");
